@@ -30,8 +30,10 @@ for file in files:
 
 # split documents
 text_splitter = RecursiveCharacterTextSplitter(
-  chunk_size=1024, chunk_overlap=200, length_function=len
+  chunk_size=512,  # Reduce for better granularity
+  chunk_overlap=100
 )
+
 
 doc_splits = text_splitter.split_documents(docs)
 
@@ -44,6 +46,6 @@ vectorstore = Chroma.from_documents(
 # create retriever
 k = min(3, len(doc_splits)) # ensure k does not exceed available chunks
 retriever = vectorstore.as_retriever(
-            search_type="similarity_score_threshold",
-            search_kwargs={"k": k, "score_threshold": 0.1},
-        )
+    search_type="similarity_score_threshold",
+    search_kwargs={"k": k, "score_threshold": 0.1},
+)
