@@ -9,10 +9,10 @@ from langgraph.graph import START, END, StateGraph
 # Intialize the graph state
 @dataclass(kw_only=True)
 class ChatState(TypedDict):
-  topic : str = field(default=None)
+  question : str = field(default=None)
   generation: str = field(default=None)
   query: str = field(default=None)
-  doucments: List[str] = field(default_factory=list)
+  documents: List[str] = field(default_factory=list)
 
 # Helper method for formatting documents
 def format_docs(docs):
@@ -45,3 +45,8 @@ builder.add_edge("generate", END)
 
 graph = builder.compile()
 
+input = ChatState(question = "What is hypertrophy training?") 
+
+answer = graph.invoke(input)
+
+print(answer["generation"])

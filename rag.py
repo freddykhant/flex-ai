@@ -1,4 +1,4 @@
-from langchain_community.document_loaders import CSVLoader
+from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_chroma import Chroma
 from langchain_nomic.embeddings import NomicEmbeddings  
@@ -14,17 +14,17 @@ embeddings = NomicEmbeddings(model="nomic-embed-text-v1.5", inference_mode="loca
 # documents
 
 files = [
-  "files/fnut-06-00131",
-  "files/fnut-11-1397090",
-  "files/jfmk-09-00009",
-  "files/JHK-91-186660",
-  "files/nutrients-16-01122-v2"
+  "files/energy-surplus.pdf",
+  "files/nutrients.pdf",
+  "files/optimal-training.pdf",
+  "files/supplementation.pdf",
+  "files/timing.pdf"
 ]
 
 # load documents
 docs = []
 for file in files:
-  loader = CSVLoader(file)
+  loader = PyPDFLoader(file)
   docs += loader.load()
 
 # split documents
