@@ -21,17 +21,25 @@ def format_docs(docs):
 
 def route_question(state):
   print("\nROUTE QUESTION\n")
-  route_question = llm_json_mode.invoke(
-    [SystemMessage(content=router_instructions)]
-    + [HumanMessage(content=state["question"])]
+  response = llm_json_mode.invoke(
+      [SystemMessage(content=router_instructions)]
+      + [HumanMessage(content=state["question"])]
   )
-  source = json.loads(route_question.content)["datasource"]
+
+  try:
+      response_json = json.loads(response.content)
+      source = response_json.get("datasource", "generalinfo")  # Default to 'generalinfo' if key is missing
+  except json.JSONDecodeError:
+      print("\nERROR: Failed to parse JSON response. Defaulting to 'generalinfo'.\n")
+      return "generalinfo"
+
   if source == "generalinfo":
-    print("\nROUTING TO GENERAL INFO\n")
-    return "generalinfo"
+      print("\nROUTING TO GENERAL INFO\n")
+      return "generalinfo"
   elif source == "vectorstore":
-    print("\nROUTE QUESTION TO RAG\n")
-    return "vectorstore"
+      print("\nROUTE QUESTION TO RAG\n")
+      return "vectorstore"
+
 
 # Document retrievel
 def retrieve(state):
@@ -42,14 +50,14 @@ def retrieve(state):
 # Generation
 def generate(state):
   question = state["question"]
-  documents = state["documents"]
-  docs_txt = format_docs(documents)
+  documents = state.get("documents", [])
+  docs_txt = format_docs(documents) if documents else "No relevant documents found."
 
-  # Format the prompt with the user's question
-  fitness_prompt_formatted = fitness_prompt.format(context = docs_txt, user_question=question)
+  fitness_prompt_formatted = fitness_prompt.format(user_question=question, context=docs_txt)
   generation = llm.invoke([HumanMessage(content=fitness_prompt_formatted)])
 
   return {"generation": generation.content}
+
 
 
 # Build LangGraph Workflow
@@ -70,7 +78,7 @@ builder.add_edge("generate", END)
 
 graph = builder.compile()
 
-input = ChatState(question = "What is hypertrophy training?") 
+input = ChatState(question = "What is the best time to take supplement protein?") 
 
 answer = graph.invoke(input)
 
