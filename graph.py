@@ -51,12 +51,17 @@ def retrieve(state):
 def generate(state):
   question = state["question"]
   documents = state.get("documents", [])
-  docs_txt = format_docs(documents) if documents else "No relevant documents found."
-
+  
+  if not documents:
+      print("\nNO RELEVANT DOCUMENTS FOUND. FALLING BACK TO GENERAL LLM RESPONSE.\n")
+      return {"generation": llm.invoke([HumanMessage(content=question)]).content}
+  
+  docs_txt = format_docs(documents)
   fitness_prompt_formatted = fitness_prompt.format(user_question=question, context=docs_txt)
   generation = llm.invoke([HumanMessage(content=fitness_prompt_formatted)])
 
   return {"generation": generation.content}
+
 
 
 
