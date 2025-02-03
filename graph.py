@@ -49,20 +49,23 @@ def retrieve(state):
 
 # Generation
 def generate(state):
-  question = state["question"]
-  documents = state.get("documents", [])
-  
-  if not documents:
-      print("\nNO RELEVANT DOCUMENTS FOUND. FALLING BACK TO GENERAL LLM RESPONSE.\n")
-      return {"generation": llm.invoke([HumanMessage(content=question)]).content}
-  
-  docs_txt = format_docs(documents)
-  fitness_prompt_formatted = fitness_prompt.format(user_question=question, context=docs_txt)
-  generation = llm.invoke([HumanMessage(content=fitness_prompt_formatted)])
+    question = state["question"]
+    documents = state.get("documents", [])
 
-  return {"generation": generation.content}
+    if not documents:
+        print("\nDEBUG: No relevant documents found. Possible reasons:")
+        print("- Embeddings might not be capturing key terms.")
+        print("- Similarity threshold might be too high.")
+        print("- Text splitting might have removed key context.")
+        print("\nFalling back to general LLM response...\n")
+        
+        return {"generation": llm.invoke([HumanMessage(content=question)]).content}
 
+    docs_txt = format_docs(documents)
+    fitness_prompt_formatted = fitness_prompt.format(user_question=question, context=docs_txt)
+    generation = llm.invoke([HumanMessage(content=fitness_prompt_formatted)])
 
+    return {"generation": generation.content}
 
 
 # Build LangGraph Workflow
@@ -83,7 +86,7 @@ builder.add_edge("generate", END)
 
 graph = builder.compile()
 
-input = ChatState(question = "What is the best time to take supplement protein?") 
+input = ChatState(question = "How does range of motion affect hypertophy?") 
 
 answer = graph.invoke(input)
 
