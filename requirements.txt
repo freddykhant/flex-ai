@@ -7,3 +7,4 @@ langchain_chroma
 langgraph
 dataclasses
 typing-extensions
+nomic[local]

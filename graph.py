@@ -30,10 +30,12 @@ def generate(state):
   documents = state["documents"]
   docs_txt = format_docs(documents)
 
-  fitness_prompt_formatted = fitness_prompt.format(context=docs_txt, topic=question)
+  # Format the prompt with the user's question
+  fitness_prompt_formatted = fitness_prompt.format(user_question=question)
   generation = llm.invoke([HumanMessage(content=fitness_prompt_formatted)])
 
   return {"generation": generation.content}
+
 
 # Build LangGraph Workflow
 builder = StateGraph(ChatState)
