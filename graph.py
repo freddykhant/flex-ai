@@ -53,11 +53,11 @@ def generate(state):
     documents = state.get("documents", [])
 
     if not documents:
-        print("\nDEBUG: No relevant documents found. Possible reasons:")
-        print("- Embeddings might not be capturing key terms.")
-        print("- Similarity threshold might be too high.")
-        print("- Text splitting might have removed key context.")
-        print("\nFalling back to general LLM response...\n")
+        print("\n[WARNING] No relevant documents found. Possible causes:")
+        print("  - Embeddings may not be capturing key terms.")
+        print("  - Similarity threshold (0.05) might be too strict.")
+        print("  - Text splitting may have removed important context.")
+        print("\n👉 Using general LLM response instead...\n")
         
         return {"generation": llm.invoke([HumanMessage(content=question)]).content}
 

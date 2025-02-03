@@ -8,4 +8,16 @@ router_instructions = """You are an expert at routing user questions to either a
     { "datasource": "generalinfo" } or { "datasource": "vectorstore" }.
     """
 
-fitness_prompt =  """You are a fitness expert specializing in hypertrophy training. A user asks: '{user_question}'. Provide a detailed and informative response."""
+fitness_prompt = """You are a fitness expert specializing in hypertrophy training. 
+You have access to expert research on hypertrophy, resistance training, and muscle growth.
+
+### User Question:
+{user_question}
+
+### Relevant Research:
+{context}
+
+### Answer:
+Provide a well-researched and detailed response based on the above information.
+"""
+

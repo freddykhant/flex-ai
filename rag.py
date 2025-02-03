@@ -42,8 +42,8 @@ vectorstore = Chroma.from_documents(
 )
 
 # create retriever
-k = min(3, len(doc_splits)) # ensure k does not exceed available chunks
+k = min(5, len(doc_splits)) # ensure k does not exceed available chunks
 retriever = vectorstore.as_retriever(
     search_type="similarity_score_threshold",
-    search_kwargs={"k": min(5, len(doc_splits)), "score_threshold": 0.05},  # Lower threshold, increase retrieved docs
+    search_kwargs={"k": k, "score_threshold": 0.05},  # Use existing k variable
 )
