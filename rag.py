@@ -7,6 +7,7 @@ from langchain_ollama import ChatOllama
 # LLM setup
 model = "llama3.1:8b"
 llm = ChatOllama(model=model, temperature=0)
+llm_json_mode = ChatOllama(model=model, temperature=0, output_format="json")
 
 # embeddings model setup
 embeddings = NomicEmbeddings(model="nomic-embed-text-v1.5", inference_mode="local")
