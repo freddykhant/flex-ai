@@ -8,3 +8,4 @@ langgraph
 dataclasses
 typing-extensions
 nomic[local]
+streamlit
