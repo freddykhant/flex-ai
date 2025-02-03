@@ -11,6 +11,16 @@ llm = ChatOllama(model=llm, temperature=0)
 # embeddings model setup
 embeddings = NomicEmbeddings(model="nomic-embed-text-v1.5", inference_mode="local")
 
+# documents
+
+files = [
+  "files/fnut-06-00131",
+  "files/fnut-11-1397090",
+  "files/jfmk-09-00009",
+  "files/JHK-91-186660",
+  "files/nutrients-16-01122-v2"
+]
+
 # load documents
 docs = []
 for file in files:
