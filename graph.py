@@ -86,8 +86,8 @@ builder.add_edge("generate", END)
 
 graph = builder.compile()
 
-input = ChatState(question = "How does range of motion affect hypertophy?") 
+# input = ChatState(question = "How does range of motion affect hypertophy?") 
 
-answer = graph.invoke(input)
+# answer = graph.invoke(input)
 
-print(answer["generation"])
+# print(answer["generation"])
