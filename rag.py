@@ -5,8 +5,8 @@ from langchain_nomic.embeddings import NomicEmbeddings
 from langchain_ollama import ChatOllama
 
 # LLM setup
-llm = "llama3.1:8b"
-llm = ChatOllama(model=llm, temperature=0)
+model = "llama3.1:8b"
+llm = ChatOllama(model=model, temperature=0)
 
 # embeddings model setup
 embeddings = NomicEmbeddings(model="nomic-embed-text-v1.5", inference_mode="local")
