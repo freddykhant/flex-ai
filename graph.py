@@ -12,7 +12,6 @@ from langgraph.graph import START, END, StateGraph
 class ChatState(TypedDict):
   question : str = field(default=None)
   generation: str = field(default=None)
-  query: str = field(default=None)
   documents: List[str] = field(default_factory=list)
 
 # Helper method for formatting documents
