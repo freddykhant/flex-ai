@@ -3,7 +3,7 @@ import json
 from graph import graph, ChatState
 
 # streamlit page config
-st.set_page_config(page_title="Flex AI", page_icon="💪", layout="wide")
+st.set_page_config(page_title="Flex AI", page_icon="💪")
 
 # title and intro
 st.title("💪Flex AI: Your AI Personal Trainer")
@@ -33,3 +33,7 @@ if st.button("Get Answer"):
 
   else:
     st.warning("⚠️Please enter a question before submitting.")
+
+# footer
+st.markdown("---")
+st.caption("Built with Streamlit, LangChain, LangGraph, Ollama - Developed by Freddy Khant 🚀")

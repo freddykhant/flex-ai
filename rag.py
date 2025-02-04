@@ -38,7 +38,8 @@ doc_splits = text_splitter.split_documents(docs)
 # add to vector database
 vectorstore = Chroma.from_documents(
   documents=doc_splits,
-  embedding=embeddings
+  embedding=embeddings,
+  persist_directory="chromadb_store"
 )
 
 # create retriever
