@@ -7,7 +7,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
   title: "Flex",
-  description: "AI powered fitness chatbot",
+  description: "AI fitness coach",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
