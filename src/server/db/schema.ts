@@ -1,5 +1,10 @@
 import { relations } from "drizzle-orm";
-import { index, pgTableCreator, primaryKey } from "drizzle-orm/pg-core";
+import {
+  index,
+  pgEnum,
+  pgTableCreator,
+  primaryKey,
+} from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 
 /**
@@ -9,6 +14,48 @@ import { type AdapterAccount } from "next-auth/adapters";
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 export const createTable = pgTableCreator((name) => `flex-ai_${name}`);
+
+/**
+ * Enums for Flex-AI fitness app
+ */
+export const sexEnum = pgEnum("sex", ["male", "female"]);
+
+export const activityLevelEnum = pgEnum("activity_level", [
+  "sedentary",
+  "lightly_active",
+  "moderately_active",
+  "very_active",
+  "extremely_active",
+]);
+
+export const experienceEnum = pgEnum("experience", [
+  "beginner",
+  "intermediate",
+  "advanced",
+]);
+
+export const goalEnum = pgEnum("goal", ["bulk", "cut", "recomp", "weight_loss"]);
+
+export const unitPreferenceEnum = pgEnum("unit_preference", [
+  "metric",
+  "imperial",
+]);
+
+export const splitTypeEnum = pgEnum("split_type", [
+  "upper_lower",
+  "ppl",
+  "bro_split",
+  "full_body",
+  "anterior_posterior",
+]);
+
+export const volumeFrequencyEnum = pgEnum("volume_frequency", [
+  "high_vol_low_freq",
+  "low_vol_high_freq",
+  "balanced",
+]);
+
+export const roleEnum = pgEnum("role", ["user", "assistant"]);
 
 export const posts = createTable(
   "post",
